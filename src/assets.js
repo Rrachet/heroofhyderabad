@@ -1,2 +1,2 @@
-export const HOHYD_LOGO = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA4oAAAF9CAYAAAB7m1ZQAAA...';
-export const TOT_LOGO = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...';
+export const HOHYD_LOGO = 'https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2F5738184d-02dc-4022-b437-47733af7e38f/watermark:F/width:160?csig=AAAAAAAAAAAAAAAAAAAAAOBknjW1-suOCrGzWVbZT9WxmNChYZYgEwgt3I0XxPbc&exp=1787047434&osig=AAAAAAAAAAAAAAAAAAAAALrHxIxaXVFWBlt8z6rbzKmHoTGCtCe0jmu1G0_Nutxm&signer=media-rpc&x-canva-quality=thumbnail';
+export const TOT_LOGO = 'https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2Fd3923bb4-89e0-49c8-99c1-771804d2813d/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAPKLS8BzDq_uCREAEVexSpG-oZNnDljAihJEZjX3n1Vr&exp=1787049280&osig=AAAAAAAAAAAAAAAAAAAAAA-KpA1a8N7SZ8QdIwoaSwBsoS6yd2sjDczlA2Y3wYAp&signer=media-rpc&x-canva-quality=thumbnail';
