@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowUpRight, Menu, X, Play, ChevronDown } from 'lucide-react';
+import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
 import './styles.css';
 
-const cats = [
+const HOHYD_LOGO = '__HOHYD_LOGO__';
+const TOT_LOGO = '__TOT_LOGO__';
+
+const categories = [
   'Inspirational Heroes', 'Heroes of HR', 'Social Impact', 'Arts & Culture',
   'Technology & Innovation', 'Education & Academia', 'Philanthropy',
   'Sustainability', 'Healthcare', 'Business & Leadership', 'Public Service',
@@ -11,266 +14,168 @@ const cats = [
 ];
 
 const jury = [
-  ['Jaikrishna B. (J.K.)', 'President & Group CHRO', 'Amara Raja Group', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=85'],
-  ['Rajesh Dhuddu', 'Blockchain & Cybersecurity Leader', 'PwC India', 'https://images.unsplash.com/photo-1566492031773-4f4e44671d66?auto=format&fit=crop&w=900&q=85'],
-  ['Pratyusha Sharma', 'HR Head', 'Invesco', 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=900&q=85'],
-  ['Meraj Faheem', 'CEO', 'Telangana Innovation Cell', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=85'],
-  ['Debashish Ghosh', 'Entrepreneur', 'Independent', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=85']
+  ['Jai Krishna B. (J.K.)', 'President & Group CHRO', 'Amara Raja Group'],
+  ['Rajesh Dhuddu', 'Blockchain & Cybersecurity Leader', 'PwC'],
+  ['Pratyusha Sharma', 'HR Head', 'Invesco'],
+  ['Meraj Faheem', 'CEO', 'Telangana Innovation Cell (TGIC)'],
+  ['Debashish Ghosh', 'Entrepreneur', 'Independent']
 ];
-
-const heroVideos = [
-  'https://www.youtube.com/embed/HXwT8EF0pio?autoplay=1&mute=1&controls=0&loop=1&playlist=HXwT8EF0pio&modestbranding=1&playsinline=1&rel=0',
-  'https://www.youtube.com/embed/rfcBEHGkA8s?autoplay=1&mute=1&controls=0&loop=1&playlist=rfcBEHGkA8s&modestbranding=1&playsinline=1&rel=0'
-];
-
-// The Charminar illustration used in the Canva HOHYD identity.
-const canvaCharminar = 'https://media-public.canva.com/FrrAU/MAFZ0QFrrAU/1/t.png';
-
-const charminarPhotos = {
-  wide: 'https://commons.wikimedia.org/wiki/Special:FilePath/Charminar%20in%20Hyderabad,%20India.jpg?width=1800',
-  portrait: 'https://commons.wikimedia.org/wiki/Special:FilePath/Charminar,%20Hyderabad,%20AP.jpg?width=1200',
-  evening: 'https://commons.wikimedia.org/wiki/Special:FilePath/Charminar%20of%20Hyderabad%20Telangana.jpg?width=1600'
-};
 
 function App() {
+  const [theme, setTheme] = useState(() => localStorage.getItem('hohyd-theme') || 'dark');
   const [menu, setMenu] = useState(false);
   const [modal, setModal] = useState(false);
-  const [videoOpen, setVideoOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [heroVideo, setHeroVideo] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setHeroVideo(v => (v + 1) % heroVideos.length), 10000);
-    return () => window.clearInterval(timer);
-  }, []);
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('hohyd-theme', theme);
+  }, [theme]);
 
   const go = id => {
     setMenu(false);
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const toggleTheme = () => setTheme(current => current === 'dark' ? 'light' : 'dark');
+
   return (
-    <div className="app">
-      <header className={scrolled ? 'header scrolled' : 'header'}>
-        <button className="brand" onClick={() => go('home')} aria-label="Heroes of Hyderabad home">
-          <span className="brandLogo">
-            <span>HO</span>
-            <img src={canvaCharminar} alt="Charminar" />
-            <span>YD</span>
-          </span>
-          <span className="brandSub">HEROES OF HYDERABAD</span>
+    <div className="site">
+      <header className="siteHeader">
+        <button className="miniBrand" onClick={() => go('home')} aria-label="Heroes of Hyderabad home">
+          <img src={HOHYD_LOGO} alt="Heroes of Hyderabad" />
         </button>
 
-        <nav>
-          {[
-            ['about', 'About'],
-            ['categories', 'Categories'],
-            ['jury', 'Jury'],
-            ['gallery', 'Moments']
-          ].map(([id, label]) => (
-            <button key={id} onClick={() => go(id)}>{label}</button>
-          ))}
+        <nav className={menu ? 'nav open' : 'nav'}>
+          <button onClick={() => go('about')}>About</button>
+          <button onClick={() => go('categories')}>Categories</button>
+          <button onClick={() => go('jury')}>Jury</button>
+          <button onClick={() => setModal(true)}>Nominate</button>
         </nav>
 
-        <button className="navCta" onClick={() => setModal(true)}>
-          Nominate <ArrowUpRight size={15} />
-        </button>
-        <button className="hamb" onClick={() => setMenu(!menu)} aria-label="Open menu">
-          {menu ? <X /> : <Menu />}
-        </button>
-      </header>
-
-      {menu && (
-        <div className="mobileNav">
-          {[
-            ['about', 'About'],
-            ['categories', 'Categories'],
-            ['jury', 'Jury'],
-            ['gallery', 'Moments']
-          ].map(([id, label]) => (
-            <button key={id} onClick={() => go(id)}>{label}</button>
-          ))}
-          <button onClick={() => setModal(true)}>Nominate a Hero</button>
+        <div className="headerActions">
+          <button className="themeButton" onClick={toggleTheme} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}>
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+          <button className="headerCta" onClick={() => setModal(true)}>Nominate <ArrowUpRight size={15} /></button>
+          <button className="menuButton" onClick={() => setMenu(!menu)} aria-label="Menu">
+            {menu ? <X size={21} /> : <Menu size={21} />}
+          </button>
         </div>
-      )}
+      </header>
 
       <main>
         <section id="home" className="hero">
-          <div className="heroVideoStack" aria-hidden="true">
-            {heroVideos.map((src, index) => (
-              <iframe
-                key={src}
-                className={index === heroVideo ? 'active' : ''}
-                title={`Charminar cinematic view ${index + 1}`}
-                src={src}
-                allow="autoplay; encrypted-media; picture-in-picture"
-              />
-            ))}
+          <div className="heroInner">
+            <p className="eyebrow">Triumphs of Talent presents</p>
+            <img className="heroLogo" src={HOHYD_LOGO} alt="Heroes of Hyderabad 2025" />
+            <p className="heroText">Recognising the people whose work, leadership and contribution are shaping Hyderabad.</p>
+            <button className="primaryButton" onClick={() => setModal(true)}>Nominate a Hero <ArrowUpRight size={16} /></button>
           </div>
-          <div className="heroShade" />
-          <div className="heroContent">
-            <p className="presenter">TRIUMPHS OF TALENT PRESENTS</p>
-            <div className="heroLogo">
-              <span>HO</span>
-              <img src={canvaCharminar} alt="Charminar" />
-              <span>YD</span>
-            </div>
-            <h1>HEROES <small>OF</small> HYDERABAD</h1>
-            <p className="heroIntro">Celebrating the people who make Hyderabad what it is.</p>
-            <div className="heroActions">
-              <button className="goldBtn" onClick={() => setModal(true)}>Nominate a Hero <ArrowUpRight size={17} /></button>
-              <button className="watchBtn" onClick={() => setVideoOpen(true)}>
-                <span><Play size={13} fill="currentColor" /></span> Watch the story
-              </button>
-            </div>
-          </div>
-          <div className="heroFooter">
-            <span>HYDERABAD · TELANGANA · INDIA</span>
-            <span>2026</span>
-          </div>
-          <button className="discover" onClick={() => go('about')}>Scroll to explore <ChevronDown size={15} /></button>
+          <div className="heroBottom"><span>HYDERABAD · TELANGANA</span><span>2025</span></div>
         </section>
 
-        <section id="about" className="intro section">
-          <div className="introCopy">
-            <p className="label">ABOUT HEROES OF HYDERABAD</p>
-            <h2>A CITY IS<br /><em>REMEMBERED</em><br />BY ITS PEOPLE.</h2>
-            <p className="lead">Heroes of Hyderabad recognises people whose work, courage and contribution have made a difference to the city and the people around them.</p>
-            <div className="stats">
-              <div><strong>75+</strong><span>PEOPLE<br />CELEBRATED</span></div>
-              <div><strong>13</strong><span>CATEGORIES<br />OF RECOGNITION</span></div>
-              <div><strong>1</strong><span>CITY<br />MANY STORIES</span></div>
-            </div>
-            <button className="textLink" onClick={() => setModal(true)}>Nominate someone <ArrowUpRight size={16} /></button>
+        <section id="about" className="about section">
+          <div className="sectionIntro">
+            <p className="eyebrow">About Heroes of Hyderabad</p>
+            <h1>Celebrating the people<br /><span>behind the city.</span></h1>
           </div>
-        </section>
-
-        <section className="charminarStory">
-          <div className="charminarImage" style={{ backgroundImage: `url(${charminarPhotos.wide})` }} />
-          <div className="charminarCopy">
-            <p className="label light">THE CITY BEGINS HERE</p>
-            <h2>FROM THE<br /><em>CHARMINAR</em><br />OUTWARD.</h2>
-            <p>Charminar has watched Hyderabad change for centuries. Around it, people have built businesses, communities, careers and lives that keep the city moving.</p>
-            <span className="photoCredit">CHARMINAR · HYDERABAD</span>
+          <div className="aboutGrid">
+            <p className="largeCopy">Hyderabad is built by people who lead, create, serve, teach, build and give back. Heroes of Hyderabad brings those stories to the forefront.</p>
+            <div className="bodyCopy">
+              <p>The platform recognises achievers and changemakers across industries and communities, giving deserving people a stage based on their work and impact.</p>
+              <p>Selections are jury-driven, with a focus on achievement, contribution and the difference a person has made.</p>
+            </div>
+          </div>
+          <div className="numbers">
+            <div><strong>75+</strong><span>ACHIEVERS<br />RECOGNISED</span></div>
+            <div><strong>13</strong><span>RECOGNITION<br />CATEGORIES</span></div>
+            <div><strong>1</strong><span>CITY<br />HYDERABAD</span></div>
           </div>
         </section>
 
         <section id="categories" className="categories section">
-          <div className="sectionHead">
-            <p className="label">THE CATEGORIES</p>
-            <h2>13 WAYS TO<br /><em>MAKE A DIFFERENCE.</em></h2>
+          <div className="sectionTop">
+            <div>
+              <p className="eyebrow">Recognition categories</p>
+              <h2>Find the story<br /><span>worth recognising.</span></h2>
+            </div>
+            <p className="sideNote">From technology and business to arts, public service and social impact, the categories reflect the many ways people contribute to Hyderabad.</p>
           </div>
-          <div className="catGrid">
-            {cats.map((cat, i) => (
-              <button className="cat" key={cat}>
-                <span>{String(i + 1).padStart(2, '0')}</span>
-                <strong>{cat}</strong>
-                <ArrowUpRight size={15} />
+          <div className="categoryList">
+            {categories.map(category => (
+              <button className="categoryRow" key={category} onClick={() => setModal(true)}>
+                <span>{category}</span><ArrowUpRight size={17} />
               </button>
             ))}
           </div>
         </section>
 
         <section id="jury" className="jury section">
-          <div className="sectionHead">
-            <p className="label">THE JURY</p>
-            <h2>PEOPLE WHO<br /><em>KNOW THE CITY.</em></h2>
+          <div className="sectionTop">
+            <div>
+              <p className="eyebrow">The jury</p>
+              <h2>Recognition<br /><span>with credibility.</span></h2>
+            </div>
+            <p className="sideNote">A panel of experienced leaders evaluates nominations and helps identify stories that deserve the spotlight.</p>
           </div>
-          <div className="juryGrid">
-            {jury.map(([name, role, org, img]) => (
-              <article className="juryCard" key={name}>
-                <div className="portrait"><img src={img} alt={name} /></div>
-                <h3>{name}</h3>
-                <p>{role}</p>
-                <small>{org}</small>
+          <div className="juryList">
+            {jury.map(([name, role, organisation]) => (
+              <article key={name} className="juryRow">
+                <div className="juryName">{name}</div>
+                <div className="juryRole">{role}</div>
+                <div className="juryOrg">{organisation}</div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="cityStrip">
-          <div className="cityStripImage" style={{ backgroundImage: `url(${charminarPhotos.portrait})` }} />
-          <div className="cityStripCopy">
-            <p className="label light">HYDERABAD</p>
-            <h2>OLD STREETS.<br /><em>NEW STORIES.</em></h2>
-            <p>There is more than one way to leave a mark.</p>
-          </div>
-        </section>
-
-        <section id="gallery" className="gallery section">
-          <div className="sectionHead">
-            <p className="label">MOMENTS</p>
-            <h2>THE PEOPLE.<br /><em>THE NIGHT.</em></h2>
-          </div>
-          <div className="galleryGrid">
-            <div className="galleryTile tileA" />
-            <div className="galleryTile tileB" />
-            <div className="galleryTile tileC" />
-            <div className="galleryTile tileD" />
-          </div>
-        </section>
-
-        <section className="finalCta">
-          <div>
-            <p className="label">KNOW A HERO?</p>
-            <h2>PUT THEIR<br /><em>NAME FORWARD.</em></h2>
-            <p>Tell us about someone in Hyderabad whose story deserves to be heard.</p>
-            <button className="goldBtn" onClick={() => setModal(true)}>Start a nomination <ArrowUpRight size={17} /></button>
+        <section className="nominate section">
+          <div className="nominateInner">
+            <img className="totLogo" src={TOT_LOGO} alt="Triumphs of Talent" />
+            <div>
+              <p className="eyebrow">Know a Hero?</p>
+              <h2>Put their<br /><span>name forward.</span></h2>
+              <p>Tell us about someone whose work deserves recognition.</p>
+              <button className="primaryButton" onClick={() => setModal(true)}>Nominate a Hero <ArrowUpRight size={16} /></button>
+            </div>
           </div>
         </section>
       </main>
 
-      <footer>
-        <div className="footerBrand">
-          <div className="footerLogo">
-            <span>HO</span><img src={canvaCharminar} alt="Charminar" /><span>YD</span>
-          </div>
-          <p>Heroes of Hyderabad</p>
-          <small>An initiative by Triumphs of Talent</small>
-        </div>
-        <div className="footLinks">
+      <footer className="footer">
+        <div className="footerBrand"><img src={HOHYD_LOGO} alt="Heroes of Hyderabad" /><p>An initiative by Triumphs of Talent.</p></div>
+        <div className="footerLinks">
           <button onClick={() => go('about')}>About</button>
           <button onClick={() => go('categories')}>Categories</button>
           <button onClick={() => go('jury')}>Jury</button>
-          <button onClick={() => go('gallery')}>Moments</button>
+          <button onClick={() => setModal(true)}>Nominate</button>
         </div>
-        <div className="footerMeta">HYDERABAD · INDIA<br /><span>© 2026 TRIUMPHS OF TALENT</span></div>
+        <div className="footerMeta">HYDERABAD · INDIA<br />© 2025 TRIUMPHS OF TALENT</div>
       </footer>
+
+      <div className="themeDock">
+        <button onClick={toggleTheme} aria-label="Toggle theme">
+          {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+        </button>
+      </div>
 
       {modal && (
         <div className="overlay" onClick={() => setModal(false)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
             <button className="close" onClick={() => setModal(false)}><X /></button>
-            <p className="label">HEROES OF HYDERABAD</p>
-            <h2>NOMINATE A<br /><em>HERO.</em></h2>
-            <p>Tell us about someone whose work or contribution deserves recognition.</p>
-            <form onSubmit={e => { e.preventDefault(); setModal(false); alert('Thank you! Your nomination has been recorded.'); }}>
-              <input placeholder="Your name" required />
-              <input placeholder="Email address" type="email" required />
-              <input placeholder="Nominee name" required />
+            <p className="eyebrow">Heroes of Hyderabad</p>
+            <h2>Nominate a<br /><span>Hero.</span></h2>
+            <p>Share the details of someone whose contribution deserves recognition.</p>
+            <form onSubmit={e => { e.preventDefault(); setModal(false); alert('Thank you for your nomination.'); }}>
+              <input required placeholder="Your name" />
+              <input required type="email" placeholder="Email address" />
+              <input required placeholder="Nominee name" />
               <input placeholder="Organisation / designation" />
-              <select defaultValue="" required>
-                <option value="" disabled>Select category</option>
-                {cats.map(cat => <option key={cat}>{cat}</option>)}
-              </select>
-              <textarea placeholder="Tell us why this person should be recognised." rows="5" required />
-              <button className="goldBtn" type="submit">Submit nomination <ArrowUpRight size={17} /></button>
+              <select required defaultValue=""><option value="" disabled>Select category</option>{categories.map(c => <option key={c}>{c}</option>)}</select>
+              <textarea required rows="5" placeholder="Why should this person be recognised?" />
+              <button className="primaryButton" type="submit">Submit nomination <ArrowUpRight size={16} /></button>
             </form>
-          </div>
-        </div>
-      )}
-
-      {videoOpen && (
-        <div className="overlay" onClick={() => setVideoOpen(false)}>
-          <div className="videoModal" onClick={e => e.stopPropagation()}>
-            <button className="close" onClick={() => setVideoOpen(false)}><X /></button>
-            <iframe title="Heroes of Hyderabad story" src={heroVideos[heroVideo].replace('controls=0', 'controls=1')} allow="autoplay; encrypted-media; picture-in-picture" />
           </div>
         </div>
       )}
