@@ -1,0 +1,95 @@
+/* HOHYD theme layer: light/dark palettes with theme-aware Charminar mark. */
+:root{color-scheme:light dark;--theme-bg:#faf8f2;--theme-surface:#f4f0e6;--theme-text:#14243a;--theme-muted:#5f6c7e;--theme-line:rgba(20,36,58,.15);--theme-accent:#123e72;--theme-gold:#c7a45b;--theme-dark:#071d3b}
+html[data-theme="light"]{color-scheme:light}
+html[data-theme="dark"]{color-scheme:dark}
+
+/* Manual theme choice wins over the system preference. */
+html[data-theme="light"] body{background:var(--theme-bg);color:var(--theme-text)}
+html[data-theme="light"] .app{background:var(--theme-bg)}
+html[data-theme="light"] .header.scrolled{background:rgba(250,248,242,.94);color:var(--theme-text);border-bottom:1px solid rgba(20,36,58,.1)}
+html[data-theme="light"] .header.scrolled nav button{color:var(--theme-text)}
+html[data-theme="light"] .header.scrolled .brand{color:var(--theme-text)}
+html[data-theme="light"] .header.scrolled .brandSub{color:var(--theme-text)}
+html[data-theme="light"] .header.scrolled .hamb{color:var(--theme-text)}
+html[data-theme="light"] .hero{background:#f8f6ef;color:var(--theme-text)}
+html[data-theme="light"] .heroShade{background:linear-gradient(180deg,rgba(250,248,242,.78),rgba(250,248,242,.34) 42%,rgba(250,248,242,.86)),linear-gradient(90deg,rgba(250,248,242,.72),rgba(250,248,242,.12) 50%,rgba(250,248,242,.72))}
+html[data-theme="light"] .heroContent .presenter{color:#7d622c}
+html[data-theme="light"] .hero h1{color:var(--theme-text)}
+html[data-theme="light"] .hero h1 small{color:var(--theme-text)}
+html[data-theme="light"] .heroIntro{color:#46556a}
+html[data-theme="light"] .watchBtn{color:var(--theme-text)}
+html[data-theme="light"] .watchBtn span{border-color:rgba(20,36,58,.5)}
+html[data-theme="light"] .heroFooter,.heroFooter{transition:color .25s ease}
+html[data-theme="light"] .heroFooter{color:#526074}
+html[data-theme="light"] .discover{color:var(--theme-text)}
+html[data-theme="light"] .intro{background:#fff}
+html[data-theme="light"] .intro h2,html[data-theme="light"] .sectionHead h2,html[data-theme="light"] .finalCta h2{color:var(--theme-text)}
+html[data-theme="light"] .lead{color:#586678}
+html[data-theme="light"] .stats{border-color:var(--theme-line)}
+html[data-theme="light"] .stats>div{border-color:var(--theme-line)}
+html[data-theme="light"] .categories{background:#f0ede5}
+html[data-theme="light"] .catGrid{border-color:var(--theme-line)}
+html[data-theme="light"] .cat{border-color:var(--theme-line);color:var(--theme-text)}
+html[data-theme="light"] .cat:hover{background:#fff}
+html[data-theme="light"] .jury{background:#fff}
+html[data-theme="light"] .cityStrip{background:#f0ede5;color:var(--theme-text)}
+html[data-theme="light"] .cityStripCopy h2{color:var(--theme-text)}
+html[data-theme="light"] .cityStripCopy h2 em{color:var(--theme-accent)}
+html[data-theme="light"] .cityStripCopy>p:not(.label){color:#5c6878}
+html[data-theme="light"] .gallery{background:#f0ede5;color:var(--theme-text)}
+html[data-theme="light"] .gallery .sectionHead h2{color:var(--theme-text)}
+html[data-theme="light"] .gallery .sectionHead h2 em{color:var(--theme-accent)}
+html[data-theme="light"] footer{background:#f0ede5;color:var(--theme-text);border-top:1px solid var(--theme-line)}
+html[data-theme="light"] footer .footLinks button{color:var(--theme-text)}
+html[data-theme="light"] .footerBrand small,html[data-theme="light"] .footerMeta{color:#667386}
+
+html[data-theme="dark"] body{background:#06172e;color:#f4f0e6}
+html[data-theme="dark"] .app{background:#06172e}
+html[data-theme="dark"] .header.scrolled{background:rgba(4,16,34,.95);border-bottom-color:rgba(255,255,255,.1)}
+html[data-theme="dark"] .hero{background:#06172e;color:#f7f2e8}
+html[data-theme="dark"] .heroShade{background:linear-gradient(180deg,rgba(3,13,28,.78),rgba(4,20,40,.25) 42%,rgba(2,12,25,.88)),linear-gradient(90deg,rgba(3,13,28,.65),transparent 50%,rgba(3,13,28,.5))}
+html[data-theme="dark"] .hero h1{color:#f7f2e8}
+html[data-theme="dark"] .heroIntro{color:#d1dae6}
+html[data-theme="dark"] .intro{background:#081d38;color:#f4f0e6}
+html[data-theme="dark"] .intro h2,html[data-theme="dark"] .sectionHead h2,html[data-theme="dark"] .finalCta h2{color:#f4f0e6}
+html[data-theme="dark"] .lead{color:#b5c2d2}
+html[data-theme="dark"] .stats{border-color:rgba(255,255,255,.16)}
+html[data-theme="dark"] .stats>div{border-color:rgba(255,255,255,.16)}
+html[data-theme="dark"] .stats strong{color:#f4f0e6}
+html[data-theme="dark"] .stats span{color:#9baabd}
+html[data-theme="dark"] .textLink{color:#e0c47e}
+html[data-theme="dark"] .categories{background:#0a2342;color:#f4f0e6}
+html[data-theme="dark"] .catGrid{border-color:rgba(255,255,255,.14)}
+html[data-theme="dark"] .cat{border-color:rgba(255,255,255,.14);color:#f4f0e6}
+html[data-theme="dark"] .cat:hover{background:#102e52}
+html[data-theme="dark"] .cat strong{color:#f4f0e6}
+html[data-theme="dark"] .jury{background:#071d37;color:#f4f0e6}
+html[data-theme="dark"] .juryCard h3{color:#f4f0e6}
+html[data-theme="dark"] .juryCard p{color:#aebccd}
+html[data-theme="dark"] .cityStrip{background:#0d2d50;color:#f4f0e6}
+html[data-theme="dark"] .cityStripCopy h2{color:#f4f0e6}
+html[data-theme="dark"] .cityStripCopy>p:not(.label){color:#b5c2d2}
+html[data-theme="dark"] .gallery{background:#04162c;color:#f4f0e6}
+html[data-theme="dark"] .gallery .sectionHead h2{color:#f4f0e6}
+html[data-theme="dark"] .finalCta{background:#081d38;color:#f4f0e6}
+html[data-theme="dark"] .finalCta h2{color:#f4f0e6}
+html[data-theme="dark"] .finalCta>div>p:not(.label){color:#aebccd}
+html[data-theme="dark"] footer{background:#020d1d;color:#f4f0e6;border-top:1px solid rgba(255,255,255,.08)}
+html[data-theme="dark"] .footLinks button{color:#dbe4ef}
+html[data-theme="dark"] .footerBrand small,html[data-theme="dark"] .footerMeta{color:#8999ac}
+html[data-theme="dark"] .modal{background:#0c2748;color:#f4f0e6}
+html[data-theme="dark"] .modal h2{color:#f4f0e6}
+html[data-theme="dark"] .modal>p:not(.label){color:#b4c0cf}
+html[data-theme="dark"] .modal input,html[data-theme="dark"] .modal textarea,html[data-theme="dark"] .modal select{background:#071d37;color:#f4f0e6;border-color:rgba(255,255,255,.18)}
+html[data-theme="dark"] .close{color:#f4f0e6}
+
+/* The small Charminar inside HOHYD switches from dark ink to white mark. */
+.brandLogo img,.heroLogo img,.footerLogo img{transition:filter .3s ease,opacity .3s ease}
+html[data-theme="light"] .brandLogo img,html[data-theme="light"] .heroLogo img,html[data-theme="light"] .footerLogo img{filter:brightness(0) saturate(100%);opacity:.88}
+html[data-theme="dark"] .brandLogo img,html[data-theme="dark"] .heroLogo img,html[data-theme="dark"] .footerLogo img{filter:brightness(0) invert(1);opacity:.94}
+/* Hero is intentionally dark/light with the rest of the selected theme, so the mark stays readable. */
+
+#themeToggle{position:fixed;z-index:55;right:22px;bottom:22px;width:42px;height:42px;border:1px solid rgba(199,164,91,.7);border-radius:50%;background:rgba(7,29,59,.88);color:#f4f0e6;display:grid;place-items:center;box-shadow:0 12px 35px rgba(0,0,0,.2);backdrop-filter:blur(12px);font-size:16px;transition:.25s ease}
+#themeToggle:hover{transform:translateY(-2px);border-color:var(--goldLight);background:var(--gold);color:var(--navy)}
+html[data-theme="light"] #themeToggle{background:rgba(255,255,255,.9);color:var(--navy);box-shadow:0 12px 35px rgba(20,36,58,.14)}
+@media(max-width:680px){#themeToggle{right:15px;bottom:15px;width:39px;height:39px}}
